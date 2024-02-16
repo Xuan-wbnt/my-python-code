@@ -1,0 +1,15 @@
+import requests
+class 百度贴吧:
+    def __init__(self,贴吧名,页数):
+        self.贴吧名 = 贴吧名
+        self.页数 = 页数
+    def 爬取(self):
+        for i in range(self.页数):
+            网址 = f'https://tieba.baidu.com/f?kw={self.贴吧名}&pn={i*50}'
+            响应 = requests.get(网址,headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36'})
+
+            with open(f'{i+1}.html','w',encoding='utf-8') as f:
+                f.write(响应.content.decode())
+
+爬虫 = 百度贴吧(input('输入贴吧名：'),int(input('输入页数：')))
+爬虫.爬取()
